@@ -1,0 +1,17 @@
+[package]
+name = "ic-auth-tokens"
+version = "0.1.0"
+edition = "2018"
+authors = ["Paul Young <84700+paulyoung@users.noreply.github.com>"]
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[dependencies]
+base62 = "2.0"
+crc = "3.0"
+ic-cdk = "0.5"
+rand = { version = "0.8", default-features = false, features = ["alloc"] }
+
+[dev-dependencies]
+rand_chacha = "0.3"
