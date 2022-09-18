@@ -1,8 +1,18 @@
 # ic-auth-tokens
 
-![](https://img.shields.io/badge/status%EF%B8%8F-experimental-blueviolet)
+![](https://img.shields.io/badge/status%EF%B8%8F-dangerous-ree)
 
 Generate authentication tokens based on the randomness provided by the Internet Computer.
+
+## Why you probably shouldn't use this
+
+This project was an experiment in discovering if authentication tokens are viable on the Internet Computer.
+
+It has proven that this approach is too insecure to be useful but will serve as evidence for why alternative methods are necessary.
+
+The following may still be beneficial:
+* For projects on the Internet Computer, `make_rng` provides a convenient way to make a random number generator from `raw_rand`.
+* For projects outside of the Internet Computer, `generate_auth_token` may still be useful provided the warning below are taken into account.
 
 ## Warnings
 
@@ -12,7 +22,7 @@ The Internet Computer supports authentication via services like [Internet Identi
 
 ### Authentication tokens sent in the clear
 
-Authentication tokens that are sent in the clear will be seen by boundary nodes and all the nodes in a subnet.
+On the Internet Computer, authentication tokens that are sent in the clear will be seen by boundary nodes and all the nodes in a subnet.
 
 ### Authentication tokens should not be stored in plain text
 
