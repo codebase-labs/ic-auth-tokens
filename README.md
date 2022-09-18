@@ -1,6 +1,6 @@
 # ic-auth-tokens
 
-![](https://img.shields.io/badge/status%EF%B8%8F-dangerous-ree)
+![](https://img.shields.io/badge/status%EF%B8%8F-dangerous-red)
 
 Generate authentication tokens based on the randomness provided by the Internet Computer.
 
