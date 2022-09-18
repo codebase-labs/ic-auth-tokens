@@ -12,7 +12,7 @@ The Internet Computer supports authentication via services like [Internet Identi
 
 ### Authentication tokens should not be stored in plain text
 
-[OWASP's Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) recommends using Argon2id to securely store hashed passwords. An example of this is provided in this repository.
+[OWASP's Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) recommends using Argon2id to securely store hashed passwords. An example is provided in this repository.
 
 ### Authentication tokens may warrant expiration
 
