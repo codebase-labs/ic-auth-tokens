@@ -1,11 +1,14 @@
 #![deny(rust_2018_idioms)]
 
 use crc::{Crc, CRC_32_ISO_HDLC};
+use derive_more::Display;
 use ic_cdk::api::call::call;
 use ic_cdk::api::trap;
+use ic_cdk::export::candid::{CandidType, Deserialize};
 use ic_cdk::export::Principal;
 use rand::distributions::{Alphanumeric, DistString};
 use rand::{CryptoRng, RngCore, SeedableRng};
+use serde::Serialize;
 use std::convert::TryInto;
 
 const DEFAULT_AUTH_TOKEN_CHAR_LENGTH: u8 = 255;
@@ -13,8 +16,10 @@ const PREFIX_SEPARATOR: &str = "_";
 const CHECKSUM_CHAR_LENGTH: u8 = 6;
 const DEFAULT_CRC_32: Crc<u32> = Crc::<u32>::new(&CRC_32_ISO_HDLC);
 
+#[derive(CandidType, Debug, Deserialize, Display, Eq, PartialEq, Serialize)]
 pub struct Prefix(pub String);
 
+#[derive(CandidType, Debug, Deserialize, Display, Eq, PartialEq, Serialize)]
 pub struct AuthToken(pub String);
 
 pub fn make_auth_token<T: RngCore + CryptoRng>(rng: &mut T, prefix: &Prefix) -> AuthToken {
@@ -41,6 +46,7 @@ fn make_auth_token_with_value(prefix: &Prefix, value: &str) -> AuthToken {
     ))
 }
 
+#[derive(CandidType, Debug, Deserialize, Display, Eq, PartialEq, Serialize)]
 pub struct Checksum(pub u32);
 
 pub fn make_checksum(input: &str) -> Checksum {
@@ -53,6 +59,7 @@ pub fn make_checksum_with_crc(input: &str, crc: Crc<u32>) -> Checksum {
     Checksum(digest.finalize())
 }
 
+#[derive(CandidType, Debug, Deserialize, Display, Eq, PartialEq, Serialize)]
 pub struct Base62EncodedChecksum(pub String);
 
 pub fn base62_encode_checksum(checksum: &Checksum) -> Base62EncodedChecksum {

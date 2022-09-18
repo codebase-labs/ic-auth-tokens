@@ -9,9 +9,12 @@ crate-type = ["cdylib", "lib"]
 
 [dependencies]
 base62 = "2.0"
+candid = "0.7.15"
 crc = "3.0"
+derive_more = "0.99.14"
 ic-cdk = "0.5"
 rand = { version = "0.8", default-features = false, features = ["alloc"] }
+serde = "1.0.115"
 
 [dev-dependencies]
 rand_chacha = "0.3"
