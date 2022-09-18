@@ -10,6 +10,10 @@ Generate authentication tokens based on the randomness provided by the Internet 
 
 The Internet Computer supports authentication via services like [Internet Identity](https://internetcomputer.org/docs/current/tokenomics/identity-auth/what-is-ic-identity/) and [NFID](https://nfid.one/). Such services eliminate the risks associated with storing and managing passwords by removing them altogether. Authentication tokens reintroduce these risks.
 
+### Authentication tokens sent in the clear
+
+Authentication tokens that are sent in the clear will be seen by boundary nodes and all the nodes in a subnet.
+
 ### Authentication tokens should not be stored in plain text
 
 [OWASP's Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) recommends using Argon2id to securely store hashed passwords. An example is provided in this repository.
