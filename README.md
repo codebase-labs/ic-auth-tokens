@@ -40,4 +40,4 @@ It says:
 
 > The length of our tokens is remaining the same for now. However, GitHub tokens will likely increase in length in future updates, so integrators should plan to support tokens up to 255 characters after June 1, 2021.
 
-Therefore, the default length used by `make_auth_token` is 255 characters. `make_auth_token_with_length` can be used to generate auth tokens of a different length.
+Therefore, the default length used by `make_auth_token` is 255 characters. `make_auth_token_with_length` can be used to generate authentication tokens of a different length.
