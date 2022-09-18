@@ -1,0 +1,4 @@
+service : {
+  generate_auth_token : () -> (text);
+  verify_auth_token : (text) -> (variant { Ok; Err: text }) query;
+}

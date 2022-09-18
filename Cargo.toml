@@ -1,4 +1,11 @@
 [workspace]
 members = [
     "crates/ic-auth-tokens",
+    "examples/ic-auth-tokens-example",
 ]
+
+[profile.release]
+codegen-units = 1
+lto = true
+linker-plugin-lto = true
+opt-level = "z"

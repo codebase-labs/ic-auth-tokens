@@ -1,0 +1,16 @@
+[package]
+name = "ic-auth-tokens-example"
+version = "0.1.0"
+edition = "2018"
+authors = ["Paul Young <84700+paulyoung@users.noreply.github.com>"]
+
+[lib]
+path = "lib.rs"
+crate-type = ["cdylib", "lib"]
+
+[dependencies]
+argon2 = "0.4"
+ic-cdk = "0.5"
+ic-cdk-macros = "0.5"
+ic-auth-tokens = { path = "../../crates/ic-auth-tokens" }
+rand_chacha = "0.3"

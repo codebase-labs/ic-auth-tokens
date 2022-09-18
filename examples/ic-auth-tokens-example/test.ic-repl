@@ -1,0 +1,5 @@
+import ic_auth_tokens_example = "rwlgt-iiaaa-aaaaa-aaaaa-cai" as "ic-auth-tokens-example.did";
+
+let auth_token = call ic_auth_tokens_example.generate_auth_token();
+let result = call ic_auth_tokens_example.verify_auth_token(auth_token);
+assert result == variant { Ok };

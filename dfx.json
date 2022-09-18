@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "dfx": "0.12.0-beta.2",
+  "canisters": {
+    "ic_auth_tokens_example": {
+      "type": "custom",
+      "build": "nix build '.#ic-auth-tokens-example'",
+      "candid": "examples/ic-auth-tokens-example/ic-auth-tokens-example.did",
+      "wasm": "result/lib/ic_auth_tokens_example.wasm.gz"
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    }
+  }
+}
