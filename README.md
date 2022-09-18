@@ -12,7 +12,7 @@ It has proven that this approach is too insecure to be useful but will serve as 
 
 The following may still be beneficial:
 * For projects on the Internet Computer, `make_rng` provides a convenient way to make a random number generator from `raw_rand`.
-* For projects outside of the Internet Computer, `generate_auth_token` may still be useful provided the warning below are taken into account.
+* For projects outside of the Internet Computer, `generate_auth_token` may still be useful provided the warnings below are taken into account.
 
 ## Warnings
 
