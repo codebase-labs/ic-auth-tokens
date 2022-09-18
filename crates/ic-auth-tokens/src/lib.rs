@@ -22,11 +22,11 @@ pub struct Prefix(pub String);
 #[derive(CandidType, Debug, Deserialize, Display, Eq, PartialEq, Serialize)]
 pub struct AuthToken(pub String);
 
-pub fn make_auth_token<T: RngCore + CryptoRng>(rng: &mut T, prefix: &Prefix) -> AuthToken {
-    make_auth_token_with_length(rng, prefix, DEFAULT_AUTH_TOKEN_CHAR_LENGTH)
+pub fn generate_auth_token<T: RngCore + CryptoRng>(rng: &mut T, prefix: &Prefix) -> AuthToken {
+    generate_auth_token_with_length(rng, prefix, DEFAULT_AUTH_TOKEN_CHAR_LENGTH)
 }
 
-pub fn make_auth_token_with_length<T: RngCore + CryptoRng>(
+pub fn generate_auth_token_with_length<T: RngCore + CryptoRng>(
     rng: &mut T,
     prefix: &Prefix,
     length: u8,
@@ -34,11 +34,11 @@ pub fn make_auth_token_with_length<T: RngCore + CryptoRng>(
     let sample_length: usize =
         length as usize - prefix.0.len() - PREFIX_SEPARATOR.len() - CHECKSUM_CHAR_LENGTH as usize;
     let sample: String = Alphanumeric.sample_string(rng, sample_length);
-    make_auth_token_with_value(prefix, &sample)
+    generate_auth_token_with_value(prefix, &sample)
 }
 
-fn make_auth_token_with_value(prefix: &Prefix, value: &str) -> AuthToken {
-    let checksum = make_checksum(value);
+fn generate_auth_token_with_value(prefix: &Prefix, value: &str) -> AuthToken {
+    let checksum = calculate_checksum(value);
     let base_62_encoded_checksum = base62_encode_checksum(&checksum);
     AuthToken(format!(
         "{}_{}{}",
@@ -49,11 +49,11 @@ fn make_auth_token_with_value(prefix: &Prefix, value: &str) -> AuthToken {
 #[derive(CandidType, Debug, Deserialize, Display, Eq, PartialEq, Serialize)]
 pub struct Checksum(pub u32);
 
-pub fn make_checksum(input: &str) -> Checksum {
-    make_checksum_with_crc(input, DEFAULT_CRC_32)
+pub fn calculate_checksum(input: &str) -> Checksum {
+    calculate_checksum_with_crc(input, DEFAULT_CRC_32)
 }
 
-pub fn make_checksum_with_crc(input: &str, crc: Crc<u32>) -> Checksum {
+pub fn calculate_checksum_with_crc(input: &str, crc: Crc<u32>) -> Checksum {
     let mut digest = crc.digest();
     digest.update(input.as_bytes());
     Checksum(digest.finalize())
@@ -101,14 +101,14 @@ mod tests {
 
     #[test]
     fn test_make_base62_encoded_checksum() {
-        let checksum = make_checksum("yzBdc2BoUJhBY13n2nv8k5FXq9fYC0");
+        let checksum = calculate_checksum("yzBdc2BoUJhBY13n2nv8k5FXq9fYC0");
         assert_eq!(base62_encode_checksum(&checksum).0, "0R8GcS");
     }
 
     #[test]
-    fn test_make_auth_token_with_value() {
+    fn test_generate_auth_token_with_value() {
         let prefix = &Prefix("abc".to_string());
-        let auth_token = make_auth_token_with_value(prefix, "yzBdc2BoUJhBY13n2nv8k5FXq9fYC0");
+        let auth_token = generate_auth_token_with_value(prefix, "yzBdc2BoUJhBY13n2nv8k5FXq9fYC0");
         assert_eq!(auth_token.0, "abc_yzBdc2BoUJhBY13n2nv8k5FXq9fYC00R8GcS");
     }
 
@@ -119,7 +119,7 @@ mod tests {
         let mut rng = ChaCha20Rng::from_seed(SEED);
         let prefix = &Prefix("a".to_string());
         assert_eq!(
-            make_auth_token(&mut rng, prefix).0.len(),
+            generate_auth_token(&mut rng, prefix).0.len(),
             DEFAULT_AUTH_TOKEN_CHAR_LENGTH as usize
         );
     }
@@ -129,7 +129,7 @@ mod tests {
         let mut rng = ChaCha20Rng::from_seed(SEED);
         let prefix = &Prefix("ab".to_string());
         assert_eq!(
-            make_auth_token(&mut rng, prefix).0.len(),
+            generate_auth_token(&mut rng, prefix).0.len(),
             DEFAULT_AUTH_TOKEN_CHAR_LENGTH as usize
         );
     }
@@ -139,7 +139,7 @@ mod tests {
         let mut rng = ChaCha20Rng::from_seed(SEED);
         let prefix = &Prefix("abc".to_string());
         assert_eq!(
-            make_auth_token(&mut rng, prefix).0.len(),
+            generate_auth_token(&mut rng, prefix).0.len(),
             DEFAULT_AUTH_TOKEN_CHAR_LENGTH as usize
         );
     }
@@ -150,7 +150,7 @@ mod tests {
         let mut rng = ChaCha20Rng::from_seed(SEED);
         let prefix = &Prefix("a".to_string());
         assert_eq!(
-            make_auth_token_with_length(&mut rng, prefix, length)
+            generate_auth_token_with_length(&mut rng, prefix, length)
                 .0
                 .len(),
             length as usize
@@ -163,7 +163,7 @@ mod tests {
         let mut rng = ChaCha20Rng::from_seed(SEED);
         let prefix = &Prefix("ab".to_string());
         assert_eq!(
-            make_auth_token_with_length(&mut rng, prefix, length)
+            generate_auth_token_with_length(&mut rng, prefix, length)
                 .0
                 .len(),
             length as usize
@@ -176,7 +176,7 @@ mod tests {
         let mut rng = ChaCha20Rng::from_seed(SEED);
         let prefix = &Prefix("abc".to_string());
         assert_eq!(
-            make_auth_token_with_length(&mut rng, prefix, length)
+            generate_auth_token_with_length(&mut rng, prefix, length)
                 .0
                 .len(),
             length as usize
