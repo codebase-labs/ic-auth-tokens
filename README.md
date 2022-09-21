@@ -30,7 +30,7 @@ On the Internet Computer, authentication tokens that are sent in the clear will 
 
 ### Authentication tokens may warrant expiration
 
-Without expiration, authentication tokens are valid until they are manually revoked. Allowing users to configure expiration ptions when generating authentication tokens can help mitigate the security implications if a token becomes compromised.
+Without expiration, authentication tokens are valid until they are manually revoked. Allowing users to configure expiration options when generating authentication tokens can help mitigate the security implications if a token becomes compromised.
 
 ## Implementation Details
 
